@@ -21,7 +21,28 @@ class Poi {
 		return json_encode($results);
 	}
 
-	public function insert($token, $select, $where) {
+	public function update($vals, $token = null) {
+		$updateString = "UPDATE points SET ";
+		$isFirst = true;
+		foreach ($vals as $key => $value) {
+			$pdoVals[":$key"] = $value;
+			if ($key != 'id') {
+				if($isFirst) {
+					$updateString .= "$key=:$key";
+					$isFirst = false;
+				} else {
+					$updateString .= ", $key=:$key";
+				}
+			}
+		}
+		$updateString .= " WHERE id=:id";
+		$statement = $this->pdo->prepare($updateString);
+		if($statement->execute($pdoVals)) {
+			return true;
+		}
+	}
 
+	public function insert($vals, $token = null) {
+		
 	}
 }

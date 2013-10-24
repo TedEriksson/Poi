@@ -1,4 +1,6 @@
 Options +FollowSymlinks
 RewriteEngine On
-RewriteRule points point.php
-RewriteRule points/([0-9]+) point.php?id=$1
+
+DirectoryIndex web/index.php
+RewriteRule ^api/(.+) api.php/$1 [QSA]
+RewriteRule ^api/ app/index.php

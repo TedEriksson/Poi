@@ -1,8 +1,9 @@
 <? 
 	include 'Poi/Poi.php';
 
-	$poi = new Poi("localhost","poi","root","");
+	$poi = new Poi("127.0.0.1","Poi","root","");
 
+	
 	$result;
 	if (isset($_GET['id'])) {
 		echo $_GET['id'];
