@@ -9,6 +9,12 @@
 	$segs = explode("/", $url);
 	$segs = array_values(array_diff($segs, ["","api"]));
 
+	if ($json = file_get_contents("php://input")) {
+		$api = new Api($segs,$json);
+	} else {
+		$api = new Api($segs);
+	}
+
 	if($segs[0] == "points") {
 		$poi = new Poi(DATABASE_HOSTNAME,DATABASE_DATABASE,DATABASE_USER,DATABASE_PASSWORD);
 		
@@ -16,7 +22,6 @@
 			if($json = file_get_contents("php://input")) {
 				echo $poi->update(json_decode($json,true));
 			} else {
-				//echo " GET";
 				echo $poi->get($segs[1]);
 			}
 		} else {
@@ -27,6 +32,39 @@
 				echo "SELECT<br><br>";
 				var_dump($whereParams);
 			}
+		}
+	}
+
+	/**
+	* 
+	*/
+	class Api {
+
+		private $segs;
+		private $json = null;
+		
+		function __construct($segs, $json = null) {
+			$this->segs = $segs;
+			$this->json = $json;
+		}
+
+		function create() {
+			switch ($json) {
+				case null:
+					# code...
+					break;
+				
+				default:
+					# code...
+					break;
+			}
+		}
+	}
+
+	class Get extends Api {
+
+		function runTask() {
+			echo "do get";
 		}
 	}
 ?>

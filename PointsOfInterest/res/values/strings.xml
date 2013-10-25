@@ -4,5 +4,9 @@
     <string name="app_name">Points of Interest</string>
     <string name="action_settings">Settings</string>
     <string name="hello_world">Hello world!</string>
+    <string name="search_by_map">Search By Map</string>
+    <string name="poi_logo">Poi Logo</string>
+    <string name="search_by_id">Search By ID</string>
+    <string name="poi">Poi</string>
 
 </resources>
