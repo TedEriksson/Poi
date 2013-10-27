@@ -4,3 +4,4 @@ RewriteEngine On
 DirectoryIndex web/index.php
 RewriteRule ^api/(.+) api.php/$1 [QSA]
 RewriteRule ^api/ app/index.php
+RewriteRule ^docs web/docs.php

@@ -1,0 +1,104 @@
+body {
+	font-family: sans-serif;
+	margin: 0px;
+}
+
+header {
+	background-image: url("/web/res/img/poi_logo.png");
+	background-repeat: no-repeat;
+	background-size: 100px 100px;
+	height: 100px;
+	width: 100%;
+	padding-left: 140px;
+	border-bottom: solid 1px rgba(0,0,0,0.2);
+	margin-left: 0px;
+	background-position: 20px;
+}
+
+header > h1 {
+	margin: 0px;
+	padding-top: 20px;
+}
+
+pre {
+	color: black;
+	border-radius: 10px;
+	padding: 15px;
+	background-color: rgb(210,210,210);
+	box-shadow: 0px 5px 10px rgba(0,0,0,0.3);
+}
+
+nav {
+	width: 250px;
+	height: 100%;
+	float: left;
+	padding-left: 10px;
+}
+
+nav > ul {
+	list-style: none;
+}
+
+pre.url {
+	border-radius: 0px;
+	font-size: 1.2em;
+}
+
+.block {
+	margin-left: 250px;
+	padding: 20px;
+}
+
+.block.dark {
+	color: white;
+	background-image: url("/web/res/img/block_1.jpg");
+	background-attachment: fixed;
+}
+
+.block.light {
+	color: black;
+	background-image: url("/web/res/img/block_2.jpg");
+	background-attachment: fixed;
+}
+
+.logo {
+	background-image: url("/web/res/img/poi_logo.png");
+	background-repeat: no-repeat;
+	background-size: auto 100%;
+	background-position: center;
+	height: 500px;
+	width: 500px;
+	margin-left: auto;
+	margin-right: auto;
+}
+
+.homepage .links {
+	text-align: center;
+	list-style: none;
+	margin: 0px;
+	padding: 0px;
+}
+
+.homepage .links li {
+	display: inline-block;
+	padding: 10px;
+	border-left: solid 1px rgba(0,0,0,0.2);
+}
+
+.homepage .links li:first-child {
+	border-left: solid 0px rgba(0,0,0,0.2);
+}
+
+.homepage .links a {
+	color: black !important;
+	height: 50px;
+	font-size: 2em;
+	text-decoration: none;
+	-webkit-transition: text-shadow 0.2s;
+	text-shadow: 0px 0px 5px rgba(0,0,0,0.3);
+}
+
+.homepage .links a:hover {
+	text-shadow: 0px 5px 5px rgba(0,0,0,0.5);
+}
+
