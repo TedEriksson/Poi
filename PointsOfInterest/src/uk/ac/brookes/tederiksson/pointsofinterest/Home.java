@@ -13,7 +13,7 @@ import android.widget.EditText;
 
 public class Home extends Activity {
 	
-	Button searchByIDButon;
+	Button searchByIDButon, searchByMap;
 	EditText idNumber;
 
     @Override
@@ -22,6 +22,7 @@ public class Home extends Activity {
         setContentView(R.layout.activity_home);
         
         searchByIDButon = (Button) findViewById(R.id.searchIDButton);
+        searchByMap = (Button) findViewById(R.id.searchMapButton);
         idNumber = (EditText) findViewById(R.id.idNumber);
         
         searchByIDButon.setOnClickListener(new OnClickListener() {
@@ -34,6 +35,15 @@ public class Home extends Activity {
 				intent.putExtra("id", Integer.parseInt(idNumber.getText().toString()));
 				startActivity(intent);
 				
+			}
+		});
+        
+        searchByMap.setOnClickListener(new OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				Intent intent = new Intent(getApplicationContext(), PointsMap.class);
+				startActivity(intent);
 			}
 		});
     }

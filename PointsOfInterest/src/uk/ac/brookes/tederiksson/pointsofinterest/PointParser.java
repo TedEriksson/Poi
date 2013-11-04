@@ -39,7 +39,7 @@ public class PointParser {
 			JSONArray jsonArray = new JSONArray(data);
 			JSONObject jsonObject = jsonArray.getJSONObject(0);
 			return new Point(1,jsonObject.getString(PoiAPIHelper.POINTS_NAME),jsonObject.getString(PoiAPIHelper.POINTS_MESSAGE),
-					Float.parseFloat(jsonObject.getString(PoiAPIHelper.POINTS_LNG)),Float.parseFloat(jsonObject.getString(PoiAPIHelper.POINTS_LAT)));
+					Double.parseDouble(jsonObject.getString(PoiAPIHelper.POINTS_LNG)),Double.parseDouble(jsonObject.getString(PoiAPIHelper.POINTS_LAT)));
 		} catch(JSONException ex) {
 			Log.e("Point Parser", "Json object failed");
 		}

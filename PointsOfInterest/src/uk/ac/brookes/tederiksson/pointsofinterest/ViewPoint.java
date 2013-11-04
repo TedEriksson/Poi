@@ -42,8 +42,8 @@ public class ViewPoint extends Activity {
 			super.onPostExecute(result);
 			name.setText(result.getName());
 			message.setText(result.getMessage());
-			lng.setText(Float.toString(result.getLng()));
-			lat.setText(Float.toString(result.getLat()));
+			lng.setText(Double.toString(result.getLatLng().longitude));
+			lat.setText(Double.toString(result.getLatLng().latitude));
 			
 			loading.setText("Done!");
 		}
