@@ -18,6 +18,7 @@ class Poi {
 			$statement->execute(array('id' => $id));
 		}
 		$results = $statement->fetchAll(PDO::FETCH_ASSOC);
+		$results = array('points' => $results);
 		return json_encode($results);
 	}
 
