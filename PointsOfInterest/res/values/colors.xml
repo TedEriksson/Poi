@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="drawer">#99111111</color>
+    <color name="drawer_item_color">#fff</color>
+    <color name="selector">#999</color>
+    <color name="selected">#99AAAAAA</color>
+    <color name="poi_orange">#D67F0D</color>
+</resources>

@@ -1,6 +1,6 @@
 $(document).ready(function() {
 	$('#get').bind('click',function() {
-		$.get('http://poi.dev/api/points/'+$('#pointID').val(), function(data) {
+		$.get('http://pointsofinterest/api/points/'+$('#pointID').val(), function(data) {
 			var point = $.parseJSON(data);
 			var string = "";
 			if (point.length == 0) {

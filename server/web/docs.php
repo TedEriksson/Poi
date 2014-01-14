@@ -9,7 +9,7 @@
 <html>
 <head>
 	<title>Poi Docs</title>
-	<link rel="stylesheet" type="text/css" href="/web/main.css">
+	<link rel="stylesheet" type="text/css" href="../web/main.css">
 </head>
 <body>
 	<header>

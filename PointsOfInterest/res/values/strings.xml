@@ -8,5 +8,12 @@
     <string name="poi_logo">Poi Logo</string>
     <string name="search_by_id">Search By ID</string>
     <string name="poi">Poi</string>
-
+    <string-array name="fragment_titles">
+        <item>Home</item>
+        <item>Find a Point</item>
+        <item>Help</item>
+        <item>Account</item>
+    </string-array>
+	<string name="drawer_open">open</string>
+	<string name="drawer_closed">closed</string>
 </resources>

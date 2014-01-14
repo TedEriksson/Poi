@@ -3,13 +3,13 @@
 <head>
 	<title>Poi Server</title>
 	<link href='http://fonts.googleapis.com/css?family=Allerta' rel='stylesheet' type='text/css'>
-	<link rel="stylesheet" type="text/css" href="/app/main.css">
+	<link rel="stylesheet" type="text/css" href="./main.css">
 	<link rel="shortcut icon" href="/favicon.ico" type="image/x-icon">
 	<link rel="icon" href="/favicon.ico" type="image/x-icon">
 </head>
 <body>
-	<script type="text/javascript" src="/app/jquery.js"></script>
-	<script type="text/javascript" src="/app/main.js"></script>
+	<script type="text/javascript" src="./jquery.js"></script>
+	<script type="text/javascript" src="./main.js"></script>
 	<header>
 		<h1>Poi Server</h1>
 		<div class="subtitle">By Ted Eriksson</div>
