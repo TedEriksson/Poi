@@ -5,35 +5,8 @@
 
 	header('Content-Type: application/json');
 
-	// var_dump($segs);
-	// if(isset($segs[0]) && $segs[0] == "points") {
-	// 	//$poi = new Poi(DATABASE_HOSTNAME,DATABASE_DATABASE,DATABASE_USER,DATABASE_PASSWORD);
-		
-	// 	if (isset($segs[1]) && !(isset($segs[2]) && is_array($segs[2]))) {
-	// 		//echo "Id detected";
-	// 		if($json = file_get_contents("php://input")) {
-	// 			//echo "Update";
-	// 			echo $poi->update(json_decode($json,true));
-	// 		} else {
-	// 			echo "Get";
-	// 			echo $poi->get($segs[1]);
-	// 		}
-	// 	} else {
-	// 		//echo "No id detected";
-	// 		if($json = file_get_contents("php://input")) {
-	// 			//echo "Insert";
-	// 		} else {
-	// 			$whereParams = $_GET;
-	// 			echo "SELECT<br><br>";
-	// 			var_dump($whereParams);
-	// 		}
-	// 	}
-	// } else {
-	// 	echo "Error in api message";
-	// }
-
 	/**
-	* 
+	*
 	*/
 	class ApiParser {
 
@@ -50,7 +23,8 @@
 			$segs = array_values(array_diff($segs, array("","api","poi")));
 
 			$this->segs = $segs;
-			$this->json = $json;
+			//if($this->isJson($json))
+				$this->json = $json;
 			$this->where = $_GET;
 			$this->request = new NullRequest();
 
@@ -62,13 +36,19 @@
 						$this->request = new Search($this->where);
 					}
 				} else {
+					$this->request = new Insert($this->json);
 					if (isset($this->segs[1]) && is_array($this->segs[1])) {
 						$this->request = new Update();
 					} else if (isset($this->segs[1])) {
-						$this->request = new Insert();
+						$this->request = new Insert($this->json);
 					}
 				}
 			}
+		}
+
+		function isJson($string) {
+			json_decode($string);
+			return (json_last_error() == JSON_ERROR_NONE);
 		}
 
 		function getrequest() {
@@ -114,12 +94,20 @@
 	}
 
 	class Insert implements Request {
+
+		private $json = null;
+
+		function __construct($json) {
+			$this->poi = new Poi(DATABASE_HOSTNAME,DATABASE_DATABASE,DATABASE_USER,DATABASE_PASSWORD);
+			$this->json = $json;
+		}
+
 		public function getRequest() {
 			echo "INSERT";
 		}
 
 		public function performRequest() {
-
+			return $this->poi->insert($this->json);
 		}
 	}
 
@@ -158,5 +146,6 @@
 		$api = new ApiParser($_SERVER['REQUEST_URI']);
 	}
 
+	//echo $api->getRequest();
 	echo $api->performRequest();
 ?>

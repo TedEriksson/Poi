@@ -16,13 +16,13 @@ import android.util.Log;
 
 public class PointParser {
 
-	public PointParser() {
-		// TODO Auto-generated constructor stub
+	protected PointParser() {
+		
 	}
 	
-	public Point getPointsById(int id) {
+	private static synchronized String getDataString(String selection) {
 		HttpClient httpClient = new DefaultHttpClient();
-		HttpGet get = new HttpGet(PoiAPIHelper.API_BASE_NAME+PoiAPIHelper.POINTS+id);
+		HttpGet get = new HttpGet(PoiAPIHelper.API_BASE_NAME+PoiAPIHelper.POINTS+selection);
 
 		HttpResponse response;
 		String data = null;
@@ -34,10 +34,15 @@ public class PointParser {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-		
+		return data;
+	}
+	
+	public static Point getPointsById(int id) {
+		String data = getDataString(Integer.toString(id));
 		try {
-			JSONArray jsonArray = new JSONArray(data);
-			JSONObject jsonObject = jsonArray.getJSONObject(0);
+			JSONObject pointsJSONObject = new JSONObject(data);
+			
+			JSONObject jsonObject = pointsJSONObject.getJSONArray("points").getJSONObject(0);
 			return new Point(1,jsonObject.getString(PoiAPIHelper.POINTS_NAME),jsonObject.getString(PoiAPIHelper.POINTS_MESSAGE),
 					Double.parseDouble(jsonObject.getString(PoiAPIHelper.POINTS_LNG)),Double.parseDouble(jsonObject.getString(PoiAPIHelper.POINTS_LAT)));
 		} catch(JSONException ex) {

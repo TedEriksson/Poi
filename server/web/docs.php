@@ -27,6 +27,7 @@
 			?>
 		</ul>	
 	</nav>
+	<div class="blocks">
 	<?php
 				foreach ($docs as $key => $value) {
 					?>
@@ -34,5 +35,6 @@
 					<?php
 				}
 			?>
+	</div>
 </body>
 </html>

@@ -30,7 +30,7 @@ public class MainActivity extends FragmentActivity {
 	    super.onCreate(savedInstanceState);
 	
 	    setContentView(R.layout.drawer);
-	    
+
 	    title = drawerTitle = getTitle();
 	    
 	    fragmentTitles = getResources().getStringArray(R.array.fragment_titles);
@@ -59,8 +59,18 @@ public class MainActivity extends FragmentActivity {
 	    
 	    getActionBar().setDisplayHomeAsUpEnabled(true);
         getActionBar().setHomeButtonEnabled(true);
+        
+        if (savedInstanceState == null) {
+            selectItem(0);
+        }
+
 	}
 	
+	@Override
+	protected void onSaveInstanceState(Bundle outState) {
+		super.onSaveInstanceState(outState);
+	}
+
 	@Override
     protected void onPostCreate(Bundle savedInstanceState) {
         super.onPostCreate(savedInstanceState);

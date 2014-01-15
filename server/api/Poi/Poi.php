@@ -7,6 +7,7 @@ class Poi {
 
 	function __construct($hostname,$database,$username,$password) {
 		$this->pdo = new PDO("mysql:host=$hostname;dbname=$database",$username,$password);
+		$this->pdo->setAttribute(PDO::ATTR_EMULATE_PREPARES,TRUE);
 	}
 
 	public function get($id = null) {
@@ -44,20 +45,55 @@ class Poi {
 	}
 
 	public function insert($vals, $token = null) {
-		
+		$vals = json_decode($vals);
+		$insertString = "INSERT INTO points ";
+		$first = true;
+		$keys = "";
+		$values = "";
+		foreach ($vals as $key => $value) {
+			if($first) {
+				$keys .= "$key";
+				$values .= ":$key";
+				$first = false;
+			} else {
+				$keys .= ", $key";
+				$values .= ", :$key";
+			}
+			$pdoVals[":$key"] = urldecode($value);
+		}
+		$insertString .= "($keys) VALUES ($values)";
+		$statement = $this->pdo->prepare($insertString);
+
+		//die($insertString . "     " . var_dump($pdoVals));
+		if($statement->execute($pdoVals)) {
+			return $this->pdo->lastInsertId('point_id');
+		} else {
+			return -1;
+		}
 	}
 
 	public function search($where, $token = null) {
 		$searchString = "SELECT * FROM points";
 		$pdoVals = null;
 		if (count($where) > 0) {
-			$searchString .= " WHERE";
 			$first = true;
+
+			if (!empty($where['clat']) && !empty($where['clng']) && !empty($where['rad'])) {
+				$having = " HAVING ( 6371 * acos( cos( radians(:clat) ) * cos( radians( latitude ) ) * cos( radians( longitude ) - radians(:clng) ) + sin( radians(:clat) ) * sin( radians( latitude ) ) ) ) < :rad";
+				$pdoVals[":clat"] = $where['clat'];
+				$pdoVals[":clng"] = $where['clng'];
+				$pdoVals[":rad"] = $where['rad'];
+
+				unset($where['clat']);
+				unset($where['clng']);
+				unset($where['rad']);
+			}
 
 			foreach ($where as $key => $value) {
 				if (!$first) {
 					$searchString .= " AND";
 				} else {
+					$searchString .= " WHERE";
 					$first = false;
 				}
 				if ($key == "minlat") {
@@ -74,8 +110,11 @@ class Poi {
 					$pdoVals[":minlongitude"] = $value;
 				}
 			}
+
+			$searchString .= $having;
+
 		}
-		//die($searchString);
+		// die($searchString);
 		$statement = $this->pdo->prepare($searchString);
 
 		if($statement->execute($pdoVals)) {
@@ -87,3 +126,4 @@ class Poi {
 		}
 	} 
 }
+?>

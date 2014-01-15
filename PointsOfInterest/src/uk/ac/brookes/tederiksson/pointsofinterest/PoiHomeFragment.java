@@ -11,7 +11,7 @@ public class PoiHomeFragment extends Fragment {
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
-		// TODO Auto-generated method stub
+		getActivity().setTitle(getResources().getStringArray(R.array.fragment_titles)[0]);
 		return inflater.inflate(R.layout.fragment_home, container, false);
 	}
 
