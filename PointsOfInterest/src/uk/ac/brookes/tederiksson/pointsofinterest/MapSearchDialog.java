@@ -9,7 +9,6 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.webkit.WebView.FindListener;
 import android.widget.NumberPicker;
 
 public class MapSearchDialog extends DialogFragment {

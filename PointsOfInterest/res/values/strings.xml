@@ -19,4 +19,5 @@
 	<string name="action_search">Search</string>
 	<string name="cancel">Cancel</string>
 	<string name="metaioSDKSignature">NA2C3EHmDDHMS2G2R52a/NY7MVddfF6V/vbn2RBELR4=</string>
+	<string name="finding_points_near_you">Finding Points near you</string>
 </resources>

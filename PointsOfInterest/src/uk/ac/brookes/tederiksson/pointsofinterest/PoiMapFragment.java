@@ -4,11 +4,9 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 import android.app.Activity;
-import android.app.Dialog;
-import android.app.DialogFragment;
 import android.app.ProgressDialog;
 import android.content.Context;
-import android.content.DialogInterface;
+import android.content.Intent;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
@@ -58,7 +56,7 @@ public class PoiMapFragment extends MapFragment {
 		setUpMapIfNeeded();
 		
 		progressDialog = new ProgressDialog(getActivity());
-		progressDialog.setTitle("Finding your location");
+		progressDialog.setMessage(getActivity().getString(R.string.finding_points_near_you));
 		progressDialog.show();
 		
 		locationManager = (LocationManager) getActivity().getSystemService(Context.LOCATION_SERVICE);
@@ -82,7 +80,9 @@ public class PoiMapFragment extends MapFragment {
 			
 			@Override
 			public void onInfoWindowClick(Marker marker) {
-				showToast(Integer.toString(hashMap.get(marker.getId())));
+				Intent intent = new Intent(getActivity(), PoiPointViewerSplash.class);
+				intent.putExtra("id", hashMap.get(marker.getId()));
+				startActivity(intent);
 			}
 		});
 		
@@ -117,13 +117,17 @@ public class PoiMapFragment extends MapFragment {
 		@Override
 		protected void onPostExecute(ArrayList<Point> result) {
 			super.onPostExecute(result);
-			for (Point point : result) {
-				MarkerOptions mO = new MarkerOptions();
-				mO	.position(point.getLatLng())
-					.title(point.getName())
-					.snippet(point.getMessage());
-				Marker m = map.addMarker(mO);
-				hashMap.put(m.getId(), point.getId());
+			if(result != null) {
+				for (Point point : result) {
+					MarkerOptions mO = new MarkerOptions();
+					mO	.position(point.getLatLng())
+						.title(point.getName())
+						.snippet(point.getMessage());
+					Marker m = map.addMarker(mO);
+					hashMap.put(m.getId(), point.getId());
+				}
+			} else {
+				showToast("Failed to get near Points. Are you connected to the Internet?");
 			}
 			progressDialog.dismiss();
 		}

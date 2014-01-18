@@ -17,9 +17,12 @@ class Poi {
 		} else {
 			$statement = $this->pdo->prepare("SELECT * FROM points WHERE point_id = :id");
 			$statement->execute(array('id' => $id));
+			$statement2 = $this->pdo->prepare("SELECT * FROM parts WHERE point_id = :id");
+			$statement2->execute(array('id' => $id));
 		}
 		$results = $statement->fetchAll(PDO::FETCH_ASSOC);
 		$results = array('points' => $results);
+		if($id != null) $results['points'][0]['parts'] =  $statement2->fetchAll(PDO::FETCH_ASSOC);
 		return json_encode($results);
 	}
 
