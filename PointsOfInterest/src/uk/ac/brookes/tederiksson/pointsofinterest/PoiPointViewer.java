@@ -6,12 +6,14 @@ import com.metaio.sdk.ARViewActivity;
 import com.metaio.sdk.MetaioDebug;
 import com.metaio.sdk.jni.IGeometry;
 import com.metaio.sdk.jni.IMetaioSDKCallback;
+import com.metaio.sdk.jni.MetaioSDK;
 import com.metaio.sdk.jni.Vector3d;
 import com.metaio.tools.io.AssetsManager;
 
 import android.content.Intent;
 import android.nfc.NdefMessage;
 import android.nfc.NfcAdapter;
+import android.nfc.NfcAdapter.CreateBeamUrisCallback;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Parcelable;
@@ -61,19 +63,20 @@ public class PoiPointViewer extends ARViewActivity {
 	        
 			mPointModels = new ArrayList<IGeometry>();
 			// Getting a file path for a 3D geometry
-			String metaioManModel = AssetsManager.getAssetPath("metaioman.md2");			
-			if (metaioManModel != null) 
+			String poi1 = AssetsManager.getAssetPath("poi1.png");			
+			if (poi1 != null) 
 			{
 				// Loading 3D geometry
-				mPointModels.add(metaioSDK.createGeometry(metaioManModel)); 
+				mPointModels.add(metaioSDK.createGeometryFromImage(poi1, true));
 				if (mPointModels.get(0) != null) 
 				{
 					// Set geometry properties
-					mPointModels.get(0).setScale(new Vector3d(4.0f, 4.0f, 4.0f));
-					
+					mPointModels.get(0).setScale(new Vector3d(1.0f, 1.0f, 1.0f));
+					ArrayList<PoiPart> parts = point.getParts();
+					mPointModels.get(0).setTranslation(new Vector3d(parts.get(0).x, parts.get(0).y, parts.get(0).z));
 				}
 				else
-					MetaioDebug.log(Log.ERROR, "Error loading geometry: "+metaioManModel);
+					MetaioDebug.log(Log.ERROR, "Error loading geometry: "+poi1);
 			}
 		}
 		catch (Exception e)

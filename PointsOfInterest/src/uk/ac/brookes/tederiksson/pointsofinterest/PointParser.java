@@ -54,7 +54,7 @@ public class PointParser {
 			ArrayList<PoiPart> parts = jsonArrayToPoiPart(jsonParts);
 			Log.d("Point Parser", data);
 			return new Point(1,jsonObject.getString(PoiAPIHelper.POINTS_NAME),jsonObject.getString(PoiAPIHelper.POINTS_MESSAGE),
-					Double.parseDouble(jsonObject.getString(PoiAPIHelper.POINTS_LNG)),Double.parseDouble(jsonObject.getString(PoiAPIHelper.POINTS_LAT)),parts);
+					Float.parseFloat(jsonObject.getString(PoiAPIHelper.POINTS_LNG)),Float.parseFloat(jsonObject.getString(PoiAPIHelper.POINTS_LAT)),parts);
 		} catch(JSONException ex) {
 			ex.printStackTrace();
 			Log.e("Point Parser", "Json object failed");
@@ -69,8 +69,8 @@ public class PointParser {
 			try {
 				JSONObject jsonPart = jsonParts.getJSONObject(i);
 				parts.add(new PoiPart(jsonPart.getInt(PoiAPIHelper.POINTS_PARTS_ID), jsonPart.getString(PoiAPIHelper.POINTS_PARTS_MESSAGE),
-						jsonPart.getDouble(PoiAPIHelper.POINTS_PARTS_X), jsonPart.getDouble(PoiAPIHelper.POINTS_PARTS_Y), 
-						jsonPart.getDouble(PoiAPIHelper.POINTS_PARTS_Z)));
+						(float) jsonPart.getDouble(PoiAPIHelper.POINTS_PARTS_X), (float) jsonPart.getDouble(PoiAPIHelper.POINTS_PARTS_Y), 
+						(float) jsonPart.getDouble(PoiAPIHelper.POINTS_PARTS_Z)));
 			} catch (JSONException e) {
 				e.printStackTrace();
 				Log.e("Point Parser", "Json object (parts) failed");
@@ -90,7 +90,7 @@ public class PointParser {
 			for (int i = 0; i < jsonArray.length(); i++) {
 				JSONObject jsonObject = jsonArray.getJSONObject(i);
 				points.add(new Point(jsonObject.getInt(PoiAPIHelper.POINTS_ID),jsonObject.getString(PoiAPIHelper.POINTS_NAME),jsonObject.getString(PoiAPIHelper.POINTS_MESSAGE),
-						Double.parseDouble(jsonObject.getString(PoiAPIHelper.POINTS_LNG)),Double.parseDouble(jsonObject.getString(PoiAPIHelper.POINTS_LAT)),null));
+						Float.parseFloat(jsonObject.getString(PoiAPIHelper.POINTS_LNG)),Float.parseFloat(jsonObject.getString(PoiAPIHelper.POINTS_LAT)),null));
 			}
 		} catch(JSONException ex) {
 			Log.e("Point Parser", "Json object failed");
