@@ -1,7 +1,7 @@
 package uk.ac.brookes.tederiksson.pointsofinterest;
 
 public final class PoiAPIHelper {
-	public static final String API_BASE_NAME = "http://pointsofinterest/api/";
+	public static final String API_BASE_NAME = "http://pointsofinterest.info/api/";
 	
 	public static final String POINTS = "points/";
 	

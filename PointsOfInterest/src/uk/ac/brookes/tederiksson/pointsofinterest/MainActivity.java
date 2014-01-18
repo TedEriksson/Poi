@@ -4,6 +4,7 @@ import android.support.v4.app.ActionBarDrawerToggle;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.widget.DrawerLayout;
 import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
@@ -21,8 +22,11 @@ public class MainActivity extends FragmentActivity {
 	private ListView drawerList;
 	private ActionBarDrawerToggle drawerToggle;
 	
-	 private CharSequence drawerTitle;
-	 private CharSequence title;
+	private CharSequence drawerTitle;
+	private CharSequence title;
+	
+	private String TAG_HOME = "home";
+	private String TAG_MAP = "map";
 
 	/** Called when the activity is first created. */
 	@Override
@@ -90,15 +94,39 @@ public class MainActivity extends FragmentActivity {
         if (drawerToggle.onOptionsItemSelected(item)) {
           return true;
         }
+        
+        switch(item.getItemId()) {
+        case R.id.action_search:
+        	MapSearchDialog dialog = new MapSearchDialog() {
 
+				@Override
+				public void onPosClick() {
+					super.onPosClick();
+					selectItem(1);
+				}
+
+        	};
+        	dialog.show(getFragmentManager(), "mapdialog");
+        }
         return super.onOptionsItemSelected(item);
+    }
+	
+	@Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.home, menu);
+        return super.onCreateOptionsMenu(menu);
     }
 	
 	@Override
     public boolean onPrepareOptionsMenu(Menu menu) {
         // If the nav drawer is open, hide action items related to the content view
         boolean drawerOpen = drawerLayout.isDrawerOpen(drawerList);
-        //menu.findItem(R.id.action_websearch).setVisible(!drawerOpen);
+        Fragment fragment = getFragmentManager().findFragmentByTag(TAG_MAP);
+        boolean mapVisible = false;
+        if(fragment != null)
+        	mapVisible = fragment.isVisible();
+        menu.findItem(R.id.action_search).setVisible((!drawerOpen && mapVisible));
         return super.onPrepareOptionsMenu(menu);
     }
 	
@@ -112,20 +140,23 @@ public class MainActivity extends FragmentActivity {
 	private void selectItem(int position) {
 	    // Create a new fragment and specify the planet to show based on position
 	    Fragment fragment = null;
-	    
+	    String tag = "";
 	    switch(position) {
 	    case 1:
 	    	fragment = new PoiMapFragment();
+	    	tag = TAG_MAP;
 	    	break;
 	    }
 	    
-	    if(fragment==null)
+	    if(fragment==null) {
 	    	fragment = new PoiHomeFragment();
+	    	tag = TAG_HOME;
+	    }
 	    // Insert the fragment by replacing any existing fragment
 	    FragmentManager fragmentManager = getFragmentManager();
 	    fragmentManager.beginTransaction()
 	    			   .setCustomAnimations(android.R.animator.fade_in, android.R.animator.fade_out)
-	                   .replace(R.id.content_frame, fragment)
+	                   .replace(R.id.content_frame, fragment, tag)
 	                   .commit();
 
 	    // Highlight the selected item, update the title, and close the drawer

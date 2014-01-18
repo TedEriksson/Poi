@@ -1,6 +1,7 @@
 package uk.ac.brookes.tederiksson.pointsofinterest;
 
 import java.io.IOException;
+import java.util.ArrayList;
 
 import org.apache.http.HttpResponse;
 import org.apache.http.client.ClientProtocolException;
@@ -12,6 +13,8 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import com.google.android.gms.maps.model.LatLng;
+
 import android.util.Log;
 
 public class PointParser {
@@ -20,7 +23,7 @@ public class PointParser {
 		
 	}
 	
-	private static synchronized String getDataString(String selection) {
+	private static String getDataString(String selection) {
 		HttpClient httpClient = new DefaultHttpClient();
 		HttpGet get = new HttpGet(PoiAPIHelper.API_BASE_NAME+PoiAPIHelper.POINTS+selection);
 
@@ -49,6 +52,25 @@ public class PointParser {
 			Log.e("Point Parser", "Json object failed");
 		}
 		return null;
+		
+	}
+	
+	public static ArrayList<Point> getPointsByLocation(LatLng latLng, int radius) {
+		String data = getDataString("?clat="+latLng.latitude+"&clng="+latLng.longitude+"&rad="+Integer.toString(radius));
+		Log.d("returned", data);
+		ArrayList<Point> points = new ArrayList<Point>();
+		try {
+			JSONObject pointsJSONObject = new JSONObject(data);
+			JSONArray jsonArray = pointsJSONObject.getJSONArray("points");
+			for (int i = 0; i < jsonArray.length(); i++) {
+				JSONObject jsonObject = jsonArray.getJSONObject(i);
+				points.add(new Point(jsonObject.getInt(PoiAPIHelper.POINTS_ID),jsonObject.getString(PoiAPIHelper.POINTS_NAME),jsonObject.getString(PoiAPIHelper.POINTS_MESSAGE),
+						Double.parseDouble(jsonObject.getString(PoiAPIHelper.POINTS_LNG)),Double.parseDouble(jsonObject.getString(PoiAPIHelper.POINTS_LAT))));
+			}
+		} catch(JSONException ex) {
+			Log.e("Point Parser", "Json object failed");
+		}
+		return points;
 		
 	}
 
