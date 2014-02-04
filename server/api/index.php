@@ -30,7 +30,7 @@
 		<a id="pointCreate" class="btn" href="#">Create Point</a>
 	</div>
 	<footer>
-		<div class="subtitle">Copyright 2013</div>
+		<div class="subtitle">Copyright 2013 - 2014</div>
 	</footer>
 </body>
 </html>

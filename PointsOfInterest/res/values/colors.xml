@@ -5,4 +5,5 @@
     <color name="selector">#999</color>
     <color name="selected">#99AAAAAA</color>
     <color name="poi_orange">#D67F0D</color>
+    <color name="transparent_white">#AAFFFFFF</color>
 </resources>

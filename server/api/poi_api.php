@@ -6,7 +6,7 @@
 	header('Content-Type: application/json');
 
 	/**
-	*
+	*	
 	*/
 	class ApiParser {
 

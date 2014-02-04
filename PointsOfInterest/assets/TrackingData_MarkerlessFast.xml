@@ -114,8 +114,8 @@
 							image. 
 							These parameters are not required and are intended 
 							for expert use only. -->
-					<ReferenceImage>metaioman_target.png</ReferenceImage>
-					<!-- <ReferenceImage WidthMM="100" HeightMM="100">metaioman.png</ReferenceImage> -->
+					<!-- <ReferenceImage>poi_target.png</ReferenceImage> -->
+					<ReferenceImage WidthMM="100" HeightMM="100">metaioman_target.png</ReferenceImage>
 
 					<!--	Another similarity threshold can be specified here. 
 							It will override the default similarity threshold 

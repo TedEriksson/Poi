@@ -42,12 +42,6 @@ public class PoiMapFragment extends MapFragment {
 	}
 	
 	@Override
-	public void onResume() {
-		
-		super.onResume();
-	}
-	
-	@Override
 	public void onStart() {
 		super.onStart();
 		
@@ -86,9 +80,10 @@ public class PoiMapFragment extends MapFragment {
 			}
 		});
 		
-	}
+	}	
 	
 	public void loadMarkers() {
+		map.clear();
 		radius = getActivity().getSharedPreferences("poiprefs", Activity.MODE_PRIVATE).getInt("radius", 10);
 		map.moveCamera(CameraUpdateFactory.newLatLngZoom(myLocation, 15));
 		AddMarkers addMarkers = new AddMarkers();
