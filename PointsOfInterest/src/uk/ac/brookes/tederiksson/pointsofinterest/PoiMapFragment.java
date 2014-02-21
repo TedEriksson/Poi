@@ -29,8 +29,6 @@ public class PoiMapFragment extends MapFragment {
 	private GoogleMap map;
 	private LatLng myLocation;
 	private int radius = 10000;
-	private LocationManager locationManager;
-	private LocationListener locationListener;
 	private ProgressDialog progressDialog;
 	private HashMap<String, Integer> hashMap;
 	
@@ -53,23 +51,9 @@ public class PoiMapFragment extends MapFragment {
 		progressDialog.setMessage(getActivity().getString(R.string.finding_points_near_you));
 		progressDialog.show();
 		
-		locationManager = (LocationManager) getActivity().getSystemService(Context.LOCATION_SERVICE);
-		
-		locationListener = new LocationListener() {
-		    public void onLocationChanged(Location location) {
-		    	myLocation = new LatLng(location.getLatitude(), location.getLongitude());
-		    	loadMarkers();
-		    }
+		myLocation = ((MainActivity)getActivity()).getGPSLocation();
+		loadMarkers();
 
-		    public void onStatusChanged(String provider, int status, Bundle extras) {}
-
-		    public void onProviderEnabled(String provider) {}
-
-		    public void onProviderDisabled(String provider) {}
-		  };
-
-		locationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, 0, 0, locationListener);
-		
 		map.setOnInfoWindowClickListener(new OnInfoWindowClickListener() {
 			
 			@Override
@@ -85,10 +69,19 @@ public class PoiMapFragment extends MapFragment {
 	public void loadMarkers() {
 		map.clear();
 		radius = getActivity().getSharedPreferences("poiprefs", Activity.MODE_PRIVATE).getInt("radius", 10);
-		map.moveCamera(CameraUpdateFactory.newLatLngZoom(myLocation, 15));
+		map.moveCamera(CameraUpdateFactory.newLatLngZoom(myLocation, 14 - ((radius/8))));
 		AddMarkers addMarkers = new AddMarkers();
 		addMarkers.execute();
-		locationManager.removeUpdates(locationListener);
+	}
+
+	@Override
+	public void onPause() {
+		super.onPause();
+		
+		if(progressDialog != null) {
+			progressDialog.dismiss();
+		}
+		progressDialog = null; 
 	}
 
 	private void setUpMapIfNeeded() {
@@ -124,7 +117,9 @@ public class PoiMapFragment extends MapFragment {
 			} else {
 				showToast("Failed to get near Points. Are you connected to the Internet?");
 			}
-			progressDialog.dismiss();
+			if(progressDialog != null) {
+				progressDialog.dismiss();
+			}
 		}
 		
 	}

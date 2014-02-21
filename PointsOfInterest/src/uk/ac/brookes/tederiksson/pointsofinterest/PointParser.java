@@ -58,7 +58,7 @@ public class PointParser {
 		} catch(JSONException ex) {
 			ex.printStackTrace();
 			Log.e("Point Parser", "Json object failed");
-		}
+		} 
 		return null;
 		
 	}

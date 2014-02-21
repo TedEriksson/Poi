@@ -1,5 +1,9 @@
 package uk.ac.brookes.tederiksson.pointsofinterest;
 
+import java.util.List;
+
+import com.google.android.gms.maps.model.LatLng;
+
 import android.support.v4.app.ActionBarDrawerToggle;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.widget.DrawerLayout;
@@ -13,9 +17,12 @@ import android.widget.ListView;
 import android.app.Activity;
 import android.app.Fragment;
 import android.app.FragmentManager;
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.res.Configuration;
+import android.location.Location;
+import android.location.LocationManager;
 import android.os.Bundle;
 
 public class MainActivity extends FragmentActivity {
@@ -52,7 +59,7 @@ public class MainActivity extends FragmentActivity {
 	    
 	    drawerList.setOnItemClickListener(new DrawerItemClickListener());
 	    
-	    drawerToggle = new ActionBarDrawerToggle(this, drawerLayout, R.drawable.ic_drawer, R.string.drawer_open, R.string.drawer_closed) {
+	    drawerToggle = new ActionBarDrawerToggle(this, drawerLayout, R.drawable.ic_navigation_drawer, R.string.drawer_open, R.string.drawer_closed) {
 	    	
             public void onDrawerClosed(View view) {
                 getActionBar().setTitle(title);
@@ -186,6 +193,23 @@ public class MainActivity extends FragmentActivity {
 	@Override
 	public void onBackPressed() {
 		finish();
+	}
+	
+	public LatLng getGPSLocation() {
+		LocationManager lm = (LocationManager) getSystemService(Context.LOCATION_SERVICE);  
+		List<String> providers = lm.getProviders(true);
+
+		Location l = null;
+
+		for (int i=providers.size()-1; i>=0; i--) {
+		l = lm.getLastKnownLocation(providers.get(i));
+		if (l != null) break;
+		}
+
+		if (l != null) {
+			return new LatLng(l.getLatitude(), l.getLongitude());
+		}
+		return null;
 	}
 
 }
