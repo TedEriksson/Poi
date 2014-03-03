@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<!-- Generated with http://android-holo-colors.com -->
+<resources xmlns:android="http://schemas.android.com/apk/res/android">
+
+  <style name="AutoCompleteTextViewPoiAppTheme" parent="android:Widget.Holo.Light.AutoCompleteTextView">
+      <item name="android:dropDownSelector">@drawable/poiapptheme_list_selector_holo_light</item>
+	    <item name="android:background">@drawable/poiapptheme_edit_text_holo_light</item>
+  </style>
+
+  <style name="ButtonPoiAppTheme" parent="android:Widget.Holo.Light.Button">
+	  <item name="android:background">@drawable/poiapptheme_btn_default_holo_light</item>
+  </style>
+
+  <style name="ImageButtonPoiAppTheme" parent="android:Widget.Holo.Light.ImageButton">
+	  <item name="android:background">@drawable/poiapptheme_btn_default_holo_light</item>
+  </style>
+
+  <style name="SpinnerPoiAppTheme" parent="android:Widget.Holo.Light.Spinner">
+      <item name="android:background">@drawable/poiapptheme_spinner_background_holo_light</item>
+      <item name="android:dropDownSelector">@drawable/poiapptheme_list_selector_holo_light</item>
+  </style>
+
+  <style name="ProgressBarPoiAppTheme" parent="android:Widget.Holo.Light.ProgressBar.Horizontal">
+      <item name="android:progressDrawable">@drawable/poiapptheme_progress_horizontal_holo_light</item>
+      <item name="android:indeterminateDrawable">@drawable/poiapptheme_progress_indeterminate_horizontal_holo_light</item>
+  </style>
+
+  <style name="TogglePoiAppTheme" parent="android:Widget.Holo.Light.Button.Toggle">
+      <item name="android:background">@drawable/poiapptheme_btn_toggle_holo_light</item>
+  </style>
+
+</resources>

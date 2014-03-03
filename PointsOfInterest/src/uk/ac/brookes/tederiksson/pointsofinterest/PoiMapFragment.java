@@ -69,7 +69,28 @@ public class PoiMapFragment extends MapFragment {
 	public void loadMarkers() {
 		map.clear();
 		radius = getActivity().getSharedPreferences("poiprefs", Activity.MODE_PRIVATE).getInt("radius", 10);
-		map.moveCamera(CameraUpdateFactory.newLatLngZoom(myLocation, 14 - ((radius/8))));
+		LatLng loc = ((MainActivity)getActivity()).getLastLocation();
+		if(loc != null) {
+			float zoom;
+			if(radius < 10) {
+				zoom = 17;
+			} else if (radius < 30) {
+				zoom = 14;
+			} else if (radius < 50) {
+				zoom = 12;
+			} else if (radius < 100) {
+				zoom = 8;
+			} else if (radius < 150) {
+				zoom = 7.5f;
+			} else if (radius < 200) {
+				zoom = 7;
+			} else if (radius < 1000) {
+				zoom = 4;
+			} else {
+				zoom = 2;
+			}
+			map.moveCamera(CameraUpdateFactory.newLatLngZoom(loc,zoom));
+		}
 		AddMarkers addMarkers = new AddMarkers();
 		addMarkers.execute();
 	}

@@ -30,5 +30,7 @@
            parent="@android:style/TextAppearance.Holo.Widget.ActionBar.Title">
         <item name="android:textColor">@android:color/white</item>
     </style>
+    
+    
 
 </resources>

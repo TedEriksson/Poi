@@ -1,10 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="drawer">#99111111</color>
-    <color name="drawer_item_color">#fff</color>
-    <color name="selector">#999</color>
-    <color name="selected">#99AAAAAA</color>
+    <color name="drawer">#EEE</color>
+    <color name="drawer_item_color">#444</color>
+    <color name="selector">#FFF</color>
+    <color name="selected">#CCC</color>
     <color name="poi_orange">#DF4F4F</color>
     <color name="transparent_white">#AAFFFFFF</color>
     <color name="grey">#ccc</color>
+    <color name="light_grey">#EEE</color>
+    <color name="light_blue">#9FD1D0</color>
 </resources>

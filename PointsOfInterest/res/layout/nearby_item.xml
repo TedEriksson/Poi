@@ -3,7 +3,8 @@
 	            android:layout_width="match_parent"
 	            android:layout_height="wrap_content"
 	            android:padding="15dp" 
-	            android:background="@drawable/homelistback">
+	            android:background="@drawable/homenearbyselector"
+	           >
 
 	            <TextView
 	                android:id="@+id/textViewNearbyName"
@@ -20,6 +21,6 @@
                android:layout_height="wrap_content"
              	android:layout_centerVertical="true"
 	                android:layout_alignParentRight="true"
-android:text="3.2Km" />
+android:text="" />
 
 </RelativeLayout>

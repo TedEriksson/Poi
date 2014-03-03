@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<!-- Generated with http://android-holo-colors.com -->
+<resources xmlns:android="http://schemas.android.com/apk/res/android">
+
+  <style name="PoiAppTheme" parent="@style/_PoiAppTheme"/>
+
+  <style name="_PoiAppTheme" parent="@style/AppTheme">
+
+    <item name="android:editTextBackground">@drawable/poiapptheme_edit_text_holo_light</item>
+
+    <item name="android:textColorHighlight">#99df4f4f</item>
+    <item name="android:textSelectHandleLeft">@drawable/poiapptheme_text_select_handle_left</item>
+    <item name="android:textSelectHandleRight">@drawable/poiapptheme_text_select_handle_right</item>
+    <item name="android:textSelectHandle">@drawable/poiapptheme_text_select_handle_middle</item>
+
+    <item name="android:autoCompleteTextViewStyle">@style/AutoCompleteTextViewPoiAppTheme</item>
+
+    <item name="android:listChoiceIndicatorMultiple">@drawable/poiapptheme_btn_check_holo_light</item>
+
+    <item name="android:listChoiceIndicatorSingle">@drawable/poiapptheme_btn_radio_holo_light</item>
+
+    <item name="android:buttonStyle">@style/ButtonPoiAppTheme</item>
+
+    <item name="android:imageButtonStyle">@style/ImageButtonPoiAppTheme</item>
+
+    <item name="android:dropDownSpinnerStyle">@style/SpinnerPoiAppTheme</item>
+
+    <item name="android:progressBarStyleHorizontal">@style/ProgressBarPoiAppTheme</item>
+
+    <item name="android:buttonStyleToggle">@style/TogglePoiAppTheme</item>
+
+  </style>
+
+</resources>
