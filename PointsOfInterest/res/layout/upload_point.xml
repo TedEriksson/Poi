@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/background"
+    android:padding="10dp" >
+
+    <RelativeLayout
+        android:id="@+id/relativeLayout1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@android:color/white"
+        android:padding="15dp" >
+
+        <TextView
+            android:id="@+id/textViewUploadStatus"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
+            android:text="Uploading Point..."
+            android:textAppearance="?android:attr/textAppearanceMedium" />
+
+    </RelativeLayout>
+    
+    <Button
+        android:id="@+id/buttonTryAgain"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@+id/relativeLayout1"
+        android:background="@drawable/homenearbyselector"
+        android:text="Try Again" />
+
+    <Button
+        android:id="@+id/buttonBacktoAccount"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@+id/buttonTryAgain"
+        android:background="@drawable/homenearbyselector"
+        android:text="Back to Account" />
+
+</RelativeLayout>

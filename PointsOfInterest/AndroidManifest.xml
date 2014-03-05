@@ -60,6 +60,8 @@
 			              android:pathPrefix="/points" />
 			</intent-filter>
     	</activity>
+    	<activity android:name="CreatePoint"></activity>
+    	<activity android:name="UploadPoint"></activity>
     </application>
 
 </manifest>

@@ -11,6 +11,7 @@ public final class PoiAPIHelper {
 	public static final String POINTS_LAT = "latitude";
 	public static final String POINTS_MESSAGE = "message";
 	public static final String POINTS_PARTS = "parts";
+	public static final String POINTS_OWNER_ID = "owner_id";
 	
 	public static final String POINTS_PARTS_ID = "part_id";
 	public static final String POINTS_PARTS_X = "x";

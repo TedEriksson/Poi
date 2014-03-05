@@ -6,6 +6,10 @@ import java.io.ObjectOutputStream;
 import java.io.Serializable;
 import java.util.ArrayList;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import com.google.android.gms.maps.model.LatLng;
 
 public class Point implements Serializable {
@@ -14,18 +18,27 @@ public class Point implements Serializable {
 	 */
 	private static final long serialVersionUID = -1567931240566650009L;
 	private int id;
-	private String name, message;
+	private String name, message, ownerId;
 	private transient LatLng latLng;
 	private ArrayList<PoiPart> parts;
 	
-	public Point(int id, String name, String message, double lng, double lat, ArrayList<PoiPart> parts) {
+	public Point(int id, String name, String message, double lng, double lat, ArrayList<PoiPart> parts, String ownerId) {
 		this.id = id;
 		this.name = name;
 		this.message = message;
+		this.ownerId = ownerId;
 		this.latLng = new LatLng(lat, lng);
 		this.parts = parts;
 	}
 	
+	public String getOwnerId() {
+		return ownerId;
+	}
+
+	public void setOwnerId(String ownerId) {
+		this.ownerId = ownerId;
+	}
+
 	private void writeObject(ObjectOutputStream out) throws IOException {
         out.defaultWriteObject();
         out.writeDouble(latLng.latitude);
@@ -81,5 +94,30 @@ public class Point implements Serializable {
 		}
 		string +=")";
 		return string;
+	}
+	
+	public JSONObject toJSON() {
+		JSONObject pointObject = new JSONObject();
+		
+		try {
+			pointObject.put(PoiAPIHelper.POINTS_ID, id);
+			pointObject.put(PoiAPIHelper.POINTS_NAME, name);
+			pointObject.put(PoiAPIHelper.POINTS_MESSAGE, message);
+			pointObject.put(PoiAPIHelper.POINTS_LAT, latLng.latitude);
+			pointObject.put(PoiAPIHelper.POINTS_LNG, latLng.longitude);
+			pointObject.put(PoiAPIHelper.POINTS_OWNER_ID, ownerId);
+			JSONArray partsArray = new JSONArray();
+			if (parts != null) {
+				for(PoiPart part : parts) {
+					partsArray.put(part.toJSON());
+				}
+			}
+			pointObject.put(PoiAPIHelper.POINTS_PARTS, partsArray);
+		} catch (JSONException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		return pointObject;
 	}
 }
