@@ -55,8 +55,9 @@ public class CreatePoint extends Activity {
 						.getText().toString(), Double.parseDouble(lng.getText()
 						.toString()), Double.parseDouble(lat.getText()
 						.toString()), null, ownerId);
-				Intent intent = new Intent(this, UploadPoint.class);
+				Intent intent = new Intent(this, PoiPointViewer.class);
 				Bundle bundle = new Bundle();
+				bundle.putBoolean(PoiPointViewer.SET_MODE_CREATE, true);
 				bundle.putSerializable("point", point);
 				intent.putExtras(bundle);
 				startActivity(intent);

@@ -2,28 +2,8 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical" >
-    
-    <LinearLayout
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:orientation="vertical" 
-    android:background="@color/transparent_white"
-    android:padding="5dp">
-
-        <TextView
-            android:id="@+id/textViewName"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text=""
-            android:textAppearance="?android:attr/textAppearanceMedium" />
-
-        <TextView
-            android:id="@+id/textViewMessage"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="" />
-	</LinearLayout>
+    android:orientation="vertical"
+    android:visibility="gone" >
 
     <RelativeLayout
         android:id="@+id/fitinbox"
@@ -31,28 +11,172 @@
         android:layout_height="250dp"
         android:layout_centerHorizontal="true"
         android:layout_centerVertical="true"
-        android:background="@drawable/border"
-         >
+        android:background="@drawable/border" >
     </RelativeLayout>
-    
+
     <RelativeLayout
-        android:id="@+id/fitin"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:orientation="vertical" 
-    android:background="@color/transparent_white"
-    android:layout_alignParentBottom="true"
-    android:padding="5dp">
+        android:id="@+id/pointViewer"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" >
 
-        <TextView
-            
-            android:layout_width="wrap_content"
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_centerHorizontal="true"
-            android:layout_centerVertical="true"
-            android:text="Fit Logo in box"
-            android:textAppearance="?android:attr/textAppearanceMedium" />
+            android:background="@color/transparent_white"
+            android:orientation="vertical"
+            android:padding="5dp" >
 
-	</RelativeLayout>
+            <TextView
+                android:id="@+id/textViewName"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text=""
+                android:textAppearance="?android:attr/textAppearanceMedium" />
+
+            <TextView
+                android:id="@+id/textViewMessage"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="" />
+        </LinearLayout>
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/pointViewCreator"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" >
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:padding="10dp" >
+
+            <Button
+                android:id="@+id/buttonPointBack"
+                android:layout_width="100dp"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:background="@drawable/homenearbyselector"
+                android:text="Previous" />
+
+            <Button
+                android:id="@+id/buttonControlsToggle"
+                android:layout_width="100dp"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:background="@drawable/homenearbyselector"
+                android:onClick="toggleControls"
+                android:text="Toggle Editor" />
+
+            <Button
+                android:id="@+id/buttonPointNext"
+                android:layout_width="100dp"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:background="@drawable/homenearbyselector"
+                android:text="New" />
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/pointControls"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:background="@drawable/background"
+            android:padding="10dp" >
+
+            <RelativeLayout
+                android:id="@+id/controlButtons"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingBottom="10dp" >
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentLeft="true"
+                    android:orientation="vertical"
+                    android:paddingRight="5dp" >
+
+                    <Button
+                        android:id="@+id/buttonXDown"
+                        android:layout_width="100dp"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/homenearbyselector"
+                        android:onClick="subtractX"
+                        android:text="Left" />
+
+                    <Button
+                        android:id="@+id/buttonXUp"
+                        android:layout_width="100dp"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/homenearbyselector"
+                        android:onClick="addX"
+                        android:text="Right" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerHorizontal="true"
+                    android:orientation="vertical"
+                    android:paddingLeft="5dp"
+                    android:paddingRight="5dp" >
+
+                    <Button
+                        android:id="@+id/buttonYUp"
+                        android:layout_width="100dp"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/homenearbyselector"
+                        android:onClick="addY"
+                        android:text="Up" />
+
+                    <Button
+                        android:id="@+id/buttonYDown"
+                        android:layout_width="100dp"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/homenearbyselector"
+                        android:onClick="subtractY"
+                        android:text="Down" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:orientation="vertical"
+                    android:paddingLeft="5dp" >
+
+                    <Button
+                        android:id="@+id/buttonZUp"
+                        android:layout_width="100dp"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/homenearbyselector"
+                        android:onClick="addZ"
+                        android:text="Forward" />
+
+                    <Button
+                        android:id="@+id/buttonZDown"
+                        android:layout_width="100dp"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/homenearbyselector"
+                        android:onClick="subtractZ"
+                        android:text="Back" />
+                </LinearLayout>
+            </RelativeLayout>
+
+            <EditText
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentRight="true"
+                android:layout_below="@+id/controlButtons"
+                android:background="@android:color/white"
+                android:hint="Part Message"
+                android:inputType="text"
+                android:padding="15dp" />
+        </RelativeLayout>
+    </RelativeLayout>
 
 </RelativeLayout>

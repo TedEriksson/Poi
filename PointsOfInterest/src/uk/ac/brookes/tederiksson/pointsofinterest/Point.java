@@ -85,12 +85,33 @@ public class Point implements Serializable {
 	public int getId() {
 		return id;
 	}
+	
+	public void addPart(PoiPart part) {
+		if(parts == null) parts = new ArrayList<PoiPart>();
+		parts.add(part);
+	}
+	
+	public int getPartsSize() {
+		if(parts != null)
+			return parts.size();
+		return 0;
+	}
+	
+	public void setPartCoordinates(int partIndex,float x,float y,float z) {
+		if(parts != null && parts.get(partIndex) != null) {
+			parts.get(partIndex).x = x;
+			parts.get(partIndex).y = y;
+			parts.get(partIndex).z = z;
+		}
+	}
 
 	@Override
 	public String toString() {
 		String string = "ID: "+id+", Name: "+ name+", Message: "+message+", LatLng: ("+latLng.toString()+"), Parts: (";
-		for(PoiPart part : parts) {
-			string += " " + part.toString();
+		if(parts != null) {
+			for(PoiPart part : parts) {
+				string += " " + part.toString();
+			}
 		}
 		string +=")";
 		return string;
