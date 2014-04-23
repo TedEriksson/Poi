@@ -44,9 +44,6 @@ public class CreatePoint extends Activity {
 
 		switch (item.getItemId()) {
 		case R.id.action_create_point:
-			Toast.makeText(this,
-					ownerId,
-					Toast.LENGTH_SHORT).show();
 			if (!name.getText().toString().equals("")
 					&& !lat.getText().toString().equals("")
 					&& !lng.getText().toString().equals("")

@@ -31,7 +31,7 @@ public class PointParser {
 	private static String getDataString(String selection) {
 		HttpClient httpClient = new DefaultHttpClient();
 		Log.d("Point Parser", PoiAPIHelper.API_BASE_NAME+PoiAPIHelper.POINTS+selection);
-		HttpGet get = new HttpGet(PoiAPIHelper.API_BASE_NAME+PoiAPIHelper.POINTS+selection);
+		HttpGet get = new HttpGet(PoiAPIHelper.API_BASE_NAME+selection);
 
 		HttpResponse response;
 		String data = null;
@@ -49,7 +49,7 @@ public class PointParser {
 	}
 	
 	public static Point getPointsById(int id) {
-		String data = getDataString(Integer.toString(id));
+		String data = getDataString(PoiAPIHelper.POINTS+Integer.toString(id));
 		if(data==null) return null;
 		try {
 			JSONObject pointsJSONObject = new JSONObject(data);
@@ -84,8 +84,27 @@ public class PointParser {
 		return parts;
 	}
 	
+	public static ArrayList<Point> getPointsByUser(String user) {
+		String data = getDataString(PoiAPIHelper.USERS+user+"/");
+		if(data==null) return null;
+		Log.d("returned", data);
+		ArrayList<Point> points = new ArrayList<Point>();
+		try {
+			JSONObject pointsJSONObject = new JSONObject(data);
+			JSONArray jsonArray = pointsJSONObject.getJSONArray("points");
+			for (int i = 0; i < jsonArray.length(); i++) {
+				JSONObject jsonObject = jsonArray.getJSONObject(i);
+				points.add(new Point(jsonObject.getInt(PoiAPIHelper.POINTS_ID),jsonObject.getString(PoiAPIHelper.POINTS_NAME),jsonObject.getString(PoiAPIHelper.POINTS_MESSAGE),
+						Float.parseFloat(jsonObject.getString(PoiAPIHelper.POINTS_LNG)),Float.parseFloat(jsonObject.getString(PoiAPIHelper.POINTS_LAT)),null,PoiAPIHelper.POINTS_OWNER_ID));
+			}
+		} catch(JSONException ex) {
+			Log.e("Point Parser", "Json object failed");
+		}
+		return points;
+	}
+	
 	public static ArrayList<Point> getPointsByLocation(LatLng latLng, int radius) {
-		String data = getDataString("?clat="+latLng.latitude+"&clng="+latLng.longitude+"&rad="+Integer.toString(radius));
+		String data = getDataString(PoiAPIHelper.POINTS+"?latitude="+latLng.latitude+"&longitude="+latLng.longitude+"&radius="+Integer.toString(radius));
 		if(data==null) return null;
 		Log.d("returned", data);
 		ArrayList<Point> points = new ArrayList<Point>();
@@ -120,6 +139,9 @@ public class PointParser {
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
 		}
+		
+		json.remove("point_id");
+
 		Log.d("POINT OUT", json.toString());
 		DefaultHttpClient httpclient = new DefaultHttpClient();
 		HttpPost httpPost = new HttpPost(PoiAPIHelper.API_BASE_NAME+PoiAPIHelper.POINTS);

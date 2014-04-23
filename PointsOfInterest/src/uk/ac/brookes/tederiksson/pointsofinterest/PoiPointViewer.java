@@ -26,10 +26,16 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Message;
 import android.os.Parcelable;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -49,6 +55,8 @@ public class PoiPointViewer extends ARViewActivity {
 	private ArrayList<IGeometry> mPointModels;
 
 	private TextView name, message;
+	
+	private EditText mPartMessage;
 
 	private MetaioSDKCallbackHandler mCallbackHandler;
 
@@ -94,7 +102,7 @@ public class PoiPointViewer extends ARViewActivity {
 			AssetsManager.extractAllAssets(getApplicationContext(), true);
 			// Getting a file path for tracking configuration XML file
 			String trackingConfigFile = AssetsManager
-					.getAssetPath("TrackingData_MarkerlessFast.xml");
+					.getAssetPath("TrackingData_Marker.xml");
 
 			// Assigning tracking configuration
 			boolean result = metaioSDK
@@ -200,6 +208,9 @@ public class PoiPointViewer extends ARViewActivity {
 			mPointModels.get(i).setVisible(false);
 		if (currentPart >= 0 && currentPart < point.getPartsSize())
 			mPointModels.get(currentPart).setVisible(true);
+		
+		if(mPartMessage != null && currentPart > -1)
+			mPartMessage.setText(point.getParts().get(currentPart).getMessage());
 	}
 	
 	public void addX(View v) {
@@ -249,6 +260,31 @@ public class PoiPointViewer extends ARViewActivity {
 		}
 		updateViews();
 	}
+	
+	public void submitPoint() {
+		Intent intent = new Intent(this, UploadPoint.class);
+		intent.putExtra("point", point);
+		startActivity(intent);
+	}
+	
+	@Override
+	public boolean onCreateOptionsMenu(Menu menu) {
+		MenuInflater inflater = getMenuInflater();
+		if(mode == MODE_CREATE) inflater.inflate(R.menu.createpoint, menu);
+		return super.onCreateOptionsMenu(menu);
+	}
+
+	@Override
+	public boolean onOptionsItemSelected(MenuItem item) {
+		// Pass the event to ActionBarDrawerToggle, if it returns
+		// true, then it has handled the app icon touch event
+
+		switch (item.getItemId()) {
+		case R.id.action_create_point:
+			submitPoint();
+		}
+		return super.onOptionsItemSelected(item);
+	}
 
 	final class MetaioSDKCallbackHandler extends IMetaioSDKCallback {
 
@@ -287,7 +323,7 @@ public class PoiPointViewer extends ARViewActivity {
 			runOnUiThread(new Runnable() {
 				@Override
 				public void run() {
-
+ 
 					pointViewer = (RelativeLayout) findViewById(R.id.pointViewer);
 					pointCreator = (RelativeLayout) findViewById(R.id.pointViewCreator);
 
@@ -328,6 +364,29 @@ public class PoiPointViewer extends ARViewActivity {
 							updateViews();
 						}
 					});
+					
+					mPartMessage = (EditText) findViewById(R.id.partMessage);
+					mPartMessage.addTextChangedListener(new TextWatcher() {
+						
+						@Override
+						public void onTextChanged(CharSequence s, int start, int before, int count) {
+							// TODO Auto-generated method stub
+							
+						}
+						
+						@Override
+						public void beforeTextChanged(CharSequence s, int start, int count,
+								int after) {
+							// TODO Auto-generated method stub
+							
+						}
+						
+						@Override
+						public void afterTextChanged(Editable s) {
+							if(mode == MODE_CREATE && currentPart > -1)
+								point.getParts().get(currentPart).setMessage(s.toString());
+						}
+					});
 
 					name.setText(point.getName());
 					message.setText(point.getMessage());
@@ -348,7 +407,7 @@ public class PoiPointViewer extends ARViewActivity {
 					mGUIView.setVisibility(View.VISIBLE);
 
 					dialog = new PoiPartDialog();
-
+					invalidateOptionsMenu();
 					sdkReady = true;
 
 				}
